@@ -63,7 +63,7 @@ fun MedicineFormScreen(
             medicine = Medicine(
                 name = if (medicineName.isBlank()) "Empty Name" else medicineName,
                 quantity = medicineQuantity.toIntOrNull() ?: 0,
-                expiryDate = LocalDate.now(),
+                expiryDate = LocalDate.now().toEpochDay(),
                 usage = if (medicineUsage.isBlank()) "Empty Usage" else medicineUsage
             )
         )

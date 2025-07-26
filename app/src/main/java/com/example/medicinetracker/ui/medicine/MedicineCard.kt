@@ -27,8 +27,10 @@ import androidx.compose.ui.unit.dp
 import com.example.medicinetracker.data.model.Medicine
 import com.example.medicinetracker.ui.theme.MedicineTrackerTheme
 import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 // TODO: Hide usage until user taps MedicineCard for more info (supports multi-line usage desc)
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun MedicineCard(
     medicine: Medicine,
@@ -54,7 +56,8 @@ fun MedicineCard(
                 Text("Name: ${medicine.name}")
                 Text("Quantity: ${medicine.quantity}")
                 Text("Usage: ${medicine.usage}")
-                Text("Expiry: ${medicine.expiryDate}")
+                Text("Expiry: ${LocalDate.ofEpochDay(medicine.expiryDate)
+                    .format(DateTimeFormatter.ofPattern("dd MMM yyyy"))}")
             }
 
             Icon(
@@ -77,7 +80,7 @@ fun MedicineCardPreview() {
                 name = "Medicine Name",
                 quantity = 10,
                 usage = "Take with water",
-                expiryDate = LocalDate.now()
+                expiryDate = LocalDate.now().toEpochDay()
             )
         )
     }
