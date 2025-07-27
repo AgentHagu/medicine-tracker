@@ -10,8 +10,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.example.medicinetracker.data.local.MedicineDatabase
 import com.example.medicinetracker.data.local.MedicineRepository
+import com.example.medicinetracker.ui.medicine.MedicineFormScreen
 import com.example.medicinetracker.ui.medicine.MedicineListScreen
 import com.example.medicinetracker.ui.medicine.MedicineListViewModel
 import com.example.medicinetracker.ui.medicine.MedicineListViewModelFactory
@@ -30,14 +34,35 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             MedicineTrackerTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    MedicineListScreen(
-                        viewModel = viewModel,
-                        onAddMedicine = {
-                            // TODO: Handle navigation to MedicineFormScreen
-                        },
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                val navController = rememberNavController()
+
+                NavHost(
+                    navController = navController,
+                    startDestination = "medicineList"
+                ) {
+                    composable("medicineList") {
+                        Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                            MedicineListScreen(
+                                viewModel = viewModel,
+                                onAddMedicine = {
+                                    navController.navigate("medicineForm")
+                                },
+                                modifier = Modifier.padding(innerPadding)
+                            )
+                        }
+                    }
+
+                    composable("medicineForm") {
+                        Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                            MedicineFormScreen(
+                                onSubmit = {
+                                    viewModel.addMedicine(it)
+                                    navController.popBackStack()
+                                },
+                                modifier = Modifier.padding(innerPadding)
+                            )
+                        }
+                    }
                 }
             }
         }
