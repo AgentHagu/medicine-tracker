@@ -1,15 +1,28 @@
-*.iml
-.gradle
-/local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
-.DS_Store
-/build
-/captures
-.externalNativeBuild
-.cxx
+# Gradle
+.gradle/
+build/
+.externalNativeBuild/
+.cxx/
+
+# Local configuration
 local.properties
+/local.properties
+
+#IntelliJ/Android Studio
+.idea/
+*.iml
+.DS_Store
+
+# IDEA-specific files that should be ignored
+.idea/caches/
+.idea/libraries/
+.idea/modules.xml
+.idea/workspace.xml
+.idea/navEditor.xml
+.idea/assetWizardSettings.xml
+
+# Testing/Debugging artifacts
+captures/
+
+# OS-specific
+.DS_Store
