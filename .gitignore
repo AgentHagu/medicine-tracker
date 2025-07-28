@@ -23,6 +23,3 @@ local.properties
 
 # Testing/Debugging artifacts
 captures/
-
-# OS-specific
-.DS_Store
